@@ -1,0 +1,36 @@
+{
+  "version": "1.0.1.8",
+  "dependencies": {
+    "Shaman.Dom": "1.0.1.9"
+  },
+  "compilationOptions": {
+    "keyFile": "Fizzler.snk"
+  },
+  "compile": [],
+  "frameworks": {
+    "net35": {
+      "compilationOptions": {
+        "define": [
+          "NET35"
+        ]
+      }
+    },
+    "net45": {
+      "compilationOptions": {
+        "define": [
+          "NETFX_CORE"
+        ]
+      }
+    },
+    "dotnet5.4": {
+      "dependencies": {
+        "System.Threading": "4.0.11-beta-23516"
+      },
+      "compilationOptions": {
+        "define": [
+          "NETFX_CORE"
+        ]
+      }
+    }
+  }
+}
