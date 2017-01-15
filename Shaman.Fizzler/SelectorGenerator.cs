@@ -112,7 +112,7 @@ namespace Fizzler
                     for (int i = 0; i < inputList.Count; i++)
                     {
                         s += ";";
-                        s += Script.Reinterpret<HtmlNode>(inputList[i]).NodeId;
+                        s += GetNodeUniqueId(Script.Reinterpret<HtmlNode>(inputList[i]));
                     }
                     inputKey = s;
                     ((dynamic)inputList).listKey = s;
@@ -126,7 +126,7 @@ namespace Fizzler
                     {
                         s += ";";
                         inputList.Add(item);
-                        s += Script.Reinterpret<HtmlNode>(item).NodeId;
+                        s += GetNodeUniqueId(Script.Reinterpret<HtmlNode>(item));
                     }
                     inputKey = s;
                     ((dynamic)inputList).listKey = s;
@@ -135,6 +135,25 @@ namespace Fizzler
             }
             return inputKey;
         }
+
+        [System.Runtime.CompilerServices.InlineCode("{instance}.synthNodeId")]
+        public static long? GetSynthNodeId(HtmlNode instance) { return 0; }
+        [System.Runtime.CompilerServices.InlineCode("{instance}.synthNodeId = {nodeId}")]
+        public static void SetSynthNodeId(HtmlNode instance, long nodeId) { }
+
+        private static long GetNodeUniqueId(HtmlNode node)
+        {
+            var z = node.NodeId;
+            if (z != 0) return z;
+
+            var synth = GetSynthNodeId(node);
+            if (synth != null) return synth.Value;
+            var m = lastSyntheticNodeId--;
+            SetSynthNodeId(node, m);
+            return m;
+        }
+
+        private static long lastSyntheticNodeId = 0;
 #endif
         protected void AddWithKey(Selector<TElement> selector, string keystr)
         {
@@ -143,10 +162,11 @@ namespace Fizzler
 
 
             Selector<TElement> cachedSelector;
-
+            
 
             if (keystr != null)
             {
+                if (this.anchorToRoot) keystr = "/" + keystr;
 #if SALTARELLE
                 var cc = cache;
                 JsDictionary<string, string> cache1;

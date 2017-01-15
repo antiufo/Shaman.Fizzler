@@ -3,10 +3,12 @@
   "dependencies": {
     "Shaman.Dom": "1.0.1.14"
   },
-  "compilationOptions": {
-    "keyFile": "Fizzler.snk"
+  "buildOptions": {
+    "keyFile": "Fizzler.snk",
+    "compile": {
+      "include": []
+    }
   },
-  "compile": [],
   "frameworks": {
     "net35": {
       "buildOptions": {
