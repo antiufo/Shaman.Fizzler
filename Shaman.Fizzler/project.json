@@ -1,7 +1,7 @@
 {
-  "version": "1.0.1.10",
+  "version": "1.0.1.11",
   "dependencies": {
-    "Shaman.Dom": "1.0.1.14"
+    "Shaman.Dom": "1.0.1.19"
   },
   "buildOptions": {
     "keyFile": "Fizzler.snk",
